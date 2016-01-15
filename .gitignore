@@ -1,0 +1,10 @@
+# Symfony directories
+App/cache/*
+!App/cache/.gitkeep
+App/logs/*
+!App/logs/.gitkeep
+
+# Composer
+vendor
+composer.lock
+composer.phar

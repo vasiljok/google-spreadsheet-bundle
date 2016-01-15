@@ -1,0 +1,6 @@
+imports:
+    - { resource: parameters.yml }
+
+framework:
+    secret: "%kernel.secret%"
+    test: ~
