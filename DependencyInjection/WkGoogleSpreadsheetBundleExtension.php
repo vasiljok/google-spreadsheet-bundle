@@ -1,6 +1,6 @@
 <?php
 
-namespace WkGoogleSpreadsheetBundle\DependencyInjection;
+namespace Wk\GoogleSpreadsheetBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,6 +19,11 @@ class WkGoogleSpreadsheetBundleExtension extends Extension
      */
     public function load(array $config, ContainerBuilder $container)
     {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $config);
+
+        $container->setParameter('wk_google_spreadsheet_bundle.access_token', $config['access_token']);
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }
