@@ -21,7 +21,8 @@ class SpreadsheetServiceTest extends WebTestCase
     /**
      * set up client
      */
-    public function setUp() {
+    public function setUp()
+    {
         $this->client = static::createClient();
     }
 
@@ -42,11 +43,12 @@ class SpreadsheetServiceTest extends WebTestCase
     /**
      * @return array
      */
-    public function provideServiceDescription() {
-        return array(
-            array('nonexistentservice', false),
-            array('wk_google_spreadsheet', true)
-        );
+    public function provideServiceDescription()
+    {
+        return [
+            ['nonexistentservice', false],
+            ['wk_google_spreadsheet', true]
+        ];
     }
 
     /**
@@ -55,7 +57,8 @@ class SpreadsheetServiceTest extends WebTestCase
      *
      * @dataProvider provideServiceDescription
      */
-    public function testServiceDescription($serviceName, $serviceExists) {
+    public function testServiceDescription($serviceName, $serviceExists)
+    {
         if (!$serviceExists) {
             $this->setExpectedException('Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException', 'You have requested a non-existent service "' . $serviceName . '".');
         }

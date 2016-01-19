@@ -32,7 +32,8 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
      *
      * @return $this
      */
-    public function setClient(Google_Client $client) {
+    public function setClient(Google_Client $client)
+    {
         $this->client = $client;
 
         return $this;
@@ -44,14 +45,15 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
      */
     public function setCredentials($serviceAccountJsonFile, $scope)
     {
-        $credentials = $this->client->loadServiceAccountJson($serviceAccountJsonFile, array($scope));
+        $credentials = $this->client->loadServiceAccountJson($serviceAccountJsonFile, [$scope]);
         $this->client->setAssertionCredentials($credentials);
     }
 
     /**
      * @return string|null
      */
-    public function refreshExpiredToken() {
+    public function refreshExpiredToken()
+    {
         /** @var Google_Auth_OAuth2 $auth */
         $auth = $this->client->getAuth();
 
@@ -67,7 +69,7 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     /**
      * {@inheritdoc}
      */
-    protected function initRequest($url, $requestHeaders = array())
+    protected function initRequest($url, $requestHeaders = [])
     {
         $this->accessToken = $this->refreshExpiredToken();
 

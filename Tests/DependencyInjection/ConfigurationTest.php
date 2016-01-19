@@ -18,7 +18,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
             'credentials_json_file' => 'credentials.json',
         ];
 
-        $sources = [ __DIR__ . '/../Data/DependencyInjection/config.yml' ];
+        $sources = [__DIR__ . '/../Data/DependencyInjection/config.yml'];
 
         $this->assertProcessedConfigurationEquals($expectedConfiguration, $sources);
     }

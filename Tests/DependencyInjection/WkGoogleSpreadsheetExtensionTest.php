@@ -14,11 +14,12 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     /**
      * @return array
      */
-    public function provideLoadParameterException() {
-        return array(
-            array(array('scope' => 'testscope'), 'The child node "credentials_json_file" at path "wk_google_spreadsheet" must be configured.'),
-            array(array('credentials_json_file' => 'credentials.json'), 'The child node "scope" at path "wk_google_spreadsheet" must be configured.')
-        );
+    public function provideLoadParameterException()
+    {
+        return [
+            [['scope' => 'testscope'], 'The child node "credentials_json_file" at path "wk_google_spreadsheet" must be configured.'],
+            [['credentials_json_file' => 'credentials.json'], 'The child node "scope" at path "wk_google_spreadsheet" must be configured.']
+        ];
     }
 
     /**
@@ -55,8 +56,8 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
      */
     protected function getContainerExtensions()
     {
-        return array(
+        return [
             new WkGoogleSpreadsheetExtension()
-        );
+        ];
     }
 }

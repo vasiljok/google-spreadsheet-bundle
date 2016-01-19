@@ -13,11 +13,11 @@ class AppKernel extends Kernel
      */
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             // Dependencies
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Wk\GoogleSpreadsheetBundle\WkGoogleSpreadsheetBundle()
-        );
+        ];
 
         return $bundles;
     }

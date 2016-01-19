@@ -15,14 +15,15 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
     /**
      * testing if the credentials are correctly set in the google client
      */
-    public function testSetCredentials() {
+    public function testSetCredentials()
+    {
         $credentialsFile = __DIR__ . '/../Data/credentials.json';
         $scope = 'scope';
-        $assertionCredentials = new Google_Auth_AssertionCredentials('test@test.com', array($scope), 'privatekey');
+        $assertionCredentials = new Google_Auth_AssertionCredentials('test@test.com', [$scope], 'privatekey');
 
         $googleClientMock = $this->getMockBuilder('\Google_Client')
             ->disableOriginalConstructor()
-            ->setMethods(array('loadServiceAccountJson', 'setAssertionCredentials'))
+            ->setMethods(['loadServiceAccountJson', 'setAssertionCredentials'])
             ->getMock();
 
         $googleClientMock->expects($this->once())
@@ -44,13 +45,14 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function provideRefreshExpiredToken() {
-        return array(
-            array(false, 'accesstoken', file_get_contents(__DIR__ . '/../Data/accessToken.json')),
-            array(false, null, null),
-            array(true, 'accesstoken', file_get_contents(__DIR__ . '/../Data/accessToken.json')),
-            array(true, null, null)
-        );
+    public function provideRefreshExpiredToken()
+    {
+        return [
+            [false, 'accesstoken', file_get_contents(__DIR__ . '/../Data/accessToken.json')],
+            [false, null, null],
+            [true, 'accesstoken', file_get_contents(__DIR__ . '/../Data/accessToken.json')],
+            [true, null, null]
+        ];
     }
 
     /**
@@ -60,10 +62,11 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
      *
      * @dataProvider provideRefreshExpiredToken
      */
-    public function testRefreshExpiredToken($isAccessTokenExpired, $expectedAccessToken, $accessTokenJson) {
+    public function testRefreshExpiredToken($isAccessTokenExpired, $expectedAccessToken, $accessTokenJson)
+    {
         $googleAuthMock = $this->getMockBuilder('\Google_Auth_OAuth2')
             ->disableOriginalConstructor()
-            ->setMethods(array('isAccessTokenExpired', 'refreshTokenWithAssertion', 'getAccessToken'))
+            ->setMethods(['isAccessTokenExpired', 'refreshTokenWithAssertion', 'getAccessToken'])
             ->getMock();
 
         $googleAuthMock->expects($this->once())
@@ -79,7 +82,7 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
 
         $googleClientMock = $this->getMockBuilder('\Google_Client')
             ->disableOriginalConstructor()
-            ->setMethods(array('getAuth'))
+            ->setMethods(['getAuth'])
             ->getMock();
 
         $googleClientMock->expects($this->any())
