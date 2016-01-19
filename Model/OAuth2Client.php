@@ -1,15 +1,15 @@
 <?php
 
-namespace Wk\GoogleSpreadsheetBundle\Services;
+namespace Wk\GoogleSpreadsheetBundle\Model;
 
 use \Google_Client;
 use \Google_Auth_OAuth2;
 
 /**
- * Class OAuth2Service
+ * Class OAuth2Client
  * @package Wk\GoogleSpreadsheetBundle\Services
  */
-class OAuth2Service
+class OAuth2Client
 {
     /**
      * @var Google_Auth_OAuth2
@@ -25,20 +25,11 @@ class OAuth2Service
         $client = new Google_Client();
         $credentials = $client->loadServiceAccountJson($serviceAccountJsonFile, $scopes);
         $client->setAssertionCredentials($credentials);
-
         $this->auth = $client->getAuth();
     }
 
     /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->auth->getAccessToken();
-    }
-
-    /**
-     * @return string
+     * @return string|null
      */
     public function refreshToken()
     {
@@ -46,6 +37,15 @@ class OAuth2Service
             $this->auth->refreshTokenWithAssertion();
         }
 
-        return $this->auth->getAccessToken();
+        return $this->extractAccessToken();
+    }
+
+    /**
+     * @return string|null
+     */
+    private function extractAccessToken() {
+        $accessTokenArray = json_decode($this->auth->getAccessToken(), true);
+
+        return isset($accessTokenArray['access_token']) ? $accessTokenArray['access_token'] : null;
     }
 }

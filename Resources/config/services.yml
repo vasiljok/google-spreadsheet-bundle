@@ -2,4 +2,5 @@ services:
     wk_google_spreadsheet:
         class: Wk\GoogleSpreadsheetBundle\Services\SpreadsheetService
         arguments:
-            - "%wk_google_spreadsheet_bundle.access_token%"
+            - "%wk_google_spreadsheet.credentials_json_file%"
+            - "%wk_google_spreadsheet.scope%"
