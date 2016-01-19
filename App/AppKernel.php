@@ -16,8 +16,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // Dependencies
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle($this),
-            new Wk\GoogleSpreadsheetBundle\WkGoogleSpreadsheetBundle(),
+            new Wk\GoogleSpreadsheetBundle\WkGoogleSpreadsheetBundle()
         );
 
         return $bundles;
