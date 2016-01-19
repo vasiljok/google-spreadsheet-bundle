@@ -4,7 +4,6 @@ namespace Wk\GoogleSpreadsheetBundle\Services;
 
 use Google\Spreadsheet\ServiceRequestFactory;
 use Google\Spreadsheet\SpreadsheetService as BaseSpreadsheetService;
-use Wk\GoogleSpreadsheetBundle\Model\OAuth2ServiceRequest;
 
 /**
  * Class SpreadsheetService
@@ -13,12 +12,10 @@ use Wk\GoogleSpreadsheetBundle\Model\OAuth2ServiceRequest;
 class SpreadsheetService extends BaseSpreadsheetService
 {
     /**
-     * @param string $serviceAccountJsonFile
-     * @param string $scope
+     * @param OAuth2ServiceRequest $oAuth2ServiceRequest
      */
-    public function __construct($serviceAccountJsonFile, $scope)
+    public function __construct(OAuth2ServiceRequest $oAuth2ServiceRequest)
     {
-        $oAuth2ServiceRequest = new OAuth2ServiceRequest($serviceAccountJsonFile, $scope);
         ServiceRequestFactory::setInstance($oAuth2ServiceRequest);
     }
 }
