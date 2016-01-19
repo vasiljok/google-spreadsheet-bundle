@@ -1,3 +1,3 @@
 parameters:
     kernel.secret: ThisIsVerySecret!
-    google_spreadsheets_access_token: token
+    google_spreadsheets_credentials_json_file: "credentials.json"

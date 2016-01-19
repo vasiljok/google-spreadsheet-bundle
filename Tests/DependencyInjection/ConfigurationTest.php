@@ -4,7 +4,7 @@ namespace Wk\GoogleSpreadsheetBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
 use Wk\GoogleSpreadsheetBundle\DependencyInjection\Configuration;
-use Wk\GoogleSpreadsheetBundle\DependencyInjection\WkGoogleSpreadsheetBundleExtension;
+use Wk\GoogleSpreadsheetBundle\DependencyInjection\WkGoogleSpreadsheetExtension;
 
 /**
  * Class ConfigurationTest
@@ -14,7 +14,8 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function testConfigurationFiles()
     {
         $expectedConfiguration = [
-            'access_token' => 'token',
+            'scope' => 'testscope',
+            'credentials_json_file' => 'credentials.json',
         ];
 
         $sources = [ __DIR__ . '/../Data/DependencyInjection/config.yml' ];
@@ -27,7 +28,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
      */
     protected function getContainerExtension()
     {
-        return new WkGoogleSpreadsheetBundleExtension();
+        return new WkGoogleSpreadsheetExtension();
     }
 
     /**

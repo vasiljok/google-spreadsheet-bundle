@@ -8,11 +8,11 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class WkGoogleSpreadsheetBundleExtension
+ * Class WkGoogleSpreadsheetExtension
  *
  * @package WkGoogleSpreadsheetBundleExtension\DependencyInjection
  */
-class WkGoogleSpreadsheetBundleExtension extends Extension
+class WkGoogleSpreadsheetExtension extends Extension
 {
     /**
      * @inheritdoc
@@ -22,7 +22,8 @@ class WkGoogleSpreadsheetBundleExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $config);
 
-        $container->setParameter('wk_google_spreadsheet_bundle.access_token', $config['access_token']);
+        $container->setParameter('wk_google_spreadsheet.scope', $config['scope']);
+        $container->setParameter('wk_google_spreadsheet.credentials_json_file', $config['credentials_json_file']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

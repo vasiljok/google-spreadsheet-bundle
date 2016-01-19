@@ -5,5 +5,6 @@ framework:
     secret: "%kernel.secret%"
     test: ~
 
-wk_google_spreadsheet_bundle:
-    access_token: %google_spreadsheets_access_token%
+wk_google_spreadsheet:
+    scope: "https://spreadsheets.google.com/feeds"
+    credentials_json_file: "%google_spreadsheets_credentials_json_file%"

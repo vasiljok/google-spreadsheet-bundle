@@ -19,10 +19,15 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $treeBuilder
-            ->root('wk_google_spreadsheet_bundle')
+            ->root('wk_google_spreadsheet')
             ->children()
-                ->scalarNode('access_token')
-                    ->info('Google Access Token For OAuth Authorization')
+                ->scalarNode('scope')
+                    ->info('Scope for Google\'s OAuth2 Authorization')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('credentials_json_file')
+                    ->info('JSON file containing credentials for Google\'s OAuth2 Authorization')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()

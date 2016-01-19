@@ -1,2 +1,3 @@
-wk_google_spreadsheet_bundle:
-    access_token: "token"
+wk_google_spreadsheet:
+    scope: "testscope"
+    credentials_json_file: "credentials.json"
