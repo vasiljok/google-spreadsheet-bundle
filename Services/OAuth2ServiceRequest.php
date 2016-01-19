@@ -18,23 +18,40 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     private $client;
 
     /**
-     * @param string $serviceAccountJsonFile
-     * @param string $scope
+     * set google client
      */
-    public function __construct($serviceAccountJsonFile, $scope)
+    public function __construct()
     {
         $this->client = new Google_Client();
-        $credentials = $this->client->loadServiceAccountJson($serviceAccountJsonFile, array($scope));
-        $this->client->setAssertionCredentials($credentials);
 
         parent::__construct('');
     }
 
     /**
-     * {@inheritdoc}
+     * @param Google_Client $client
+     *
+     * @return $this
      */
-    protected function initRequest($url, $requestHeaders = array())
+    public function setClient(Google_Client $client) {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @param string $serviceAccountJsonFile
+     * @param string $scope
+     */
+    public function setCredentials($serviceAccountJsonFile, $scope)
     {
+        $credentials = $this->client->loadServiceAccountJson($serviceAccountJsonFile, array($scope));
+        $this->client->setAssertionCredentials($credentials);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function refreshExpiredToken() {
         /** @var Google_Auth_OAuth2 $auth */
         $auth = $this->client->getAuth();
 
@@ -44,7 +61,15 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
 
         $accessTokenArray = json_decode($auth->getAccessToken(), true);
 
-        $this->accessToken = isset($accessTokenArray['access_token']) ? $accessTokenArray['access_token'] : null;
+        return ($accessTokenArray && isset($accessTokenArray['access_token'])) ? $accessTokenArray['access_token'] : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function initRequest($url, $requestHeaders = array())
+    {
+        $this->accessToken = $this->refreshExpiredToken();
 
         return parent::initRequest($url, $requestHeaders);
     }
