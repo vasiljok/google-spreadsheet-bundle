@@ -54,7 +54,6 @@ Dependencies
 ----------------------------------------------------------------
 * asimlqt/php-google-spreadsheet-client - Google Spreadsheet PHP Client
 * google/apiclient - Client library for Google APIs
-* symfony/browser-kit - Symfony BrowserKit Component
 * symfony/yaml - Symfony Yaml Component
 * symfony/framework-bundle - Symfony FrameworkBundle
 
