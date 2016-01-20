@@ -14,7 +14,6 @@ Register the bundle:
 
 ```php
 // app/AppKernel.php
-
 public function registerBundles()
 {
     $bundles = array(
@@ -27,7 +26,6 @@ Overwrite the path to your Google OAuth2 JSON credentials defined in `Wk\GoogleS
 
 ```yaml
 # parameters.yml
-
 credentials_json_file: /path/to/credentials.json
 ```
  
@@ -57,8 +55,10 @@ Dependencies
 * `symfony/yaml` - Symfony Yaml Component
 * `symfony/framework-bundle` - Symfony FrameworkBundle
 
-PHPunit Tests
+PHPUnit Tests
 ----------------------------------------------------------------
+You can run the tests using the following command:
+
     $ vendor/bin/phpunit
 
 Resources
