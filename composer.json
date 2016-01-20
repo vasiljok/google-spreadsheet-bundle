@@ -1,14 +1,17 @@
 {
   "name": "asgoodasnu/google-spreadsheet-bundle",
   "type": "symfony-bundle",
-  "description": "Google Spreadsheet Bundle for Symfony2",
-  "keywords":     ["afterbuy"],
+  "description": "Integrates asimlqt/php-google-spreadsheet-client with Symfony2 and google/apiclient",
   "homepage": "https://github.com/asgoodasnu/google-spreadsheet-bundle",
   "license": "MIT",
   "authors": [
     {
+      "name": "Annika Flemming",
+      "email": "annika.flemming@wirkaufens.de"
+    },
+    {
       "name": "Github Community",
-      "homepage": "https://github.com/asgoodasnu/afterbuyapi/contributors"
+      "homepage": "https://github.com/asgoodasnu/google-spreadsheet-bundle/contributors"
     }
   ],
   "require": {
