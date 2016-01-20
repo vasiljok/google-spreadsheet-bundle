@@ -23,9 +23,9 @@ public function registerBundles()
 }
 ```
 
-Overwrite the path to your Google OAuth2 JSON credentials defined in parameters.yml.dist:
+Overwrite the path to your Google OAuth2 JSON credentials defined in google-spreadsheet-bundle/parameters.yml in your own project's parameter.yml:
 
-    # variables in parameters.yml
+    # parameters.yml
     credentials_json_file: # enter the path to your google oauth2 credentials in json format
     
 Providing your Google OAuth2 credentials
@@ -34,10 +34,15 @@ To interact with the Google Spreadsheet API you need to provide your Google OAut
 
 Usage
 ----------------------------------------------------------------
-The service `wk_google_spreadsheet` provides direct interaction with the Google Spreadsheet PHP Client. You can invoke all methods provided by the client directly on the service, e.g.:
+The service `wk_google_spreadsheet` provides direct interaction with the Google Spreadsheet PHP Client. You can invoke all methods provided by the client directly on the service:
  
 ```php
-$container->get('wk_google_spreadsheet')->getSpreadsheets();
+$service = $container->get('wk_google_spreadsheet');
+
+$service->getSpreadsheets();
+$service->getSpreadsheetById();
+$service->getListFeed();
+$service->getCellFeed();
 ```
 
 See [https://github.com/asimlqt/php-google-spreadsheet-client](https://github.com/asimlqt/php-google-spreadsheet-client) for a full documentation of the client and its methods.
