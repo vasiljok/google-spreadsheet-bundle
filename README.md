@@ -23,7 +23,7 @@ public function registerBundles()
 }
 ```
 
-Overwrite the path to your Google OAuth2 JSON credentials defined in google-spreadsheet-bundle/parameters.yml in your own project's parameter.yml:
+Overwrite the path to your Google OAuth2 JSON credentials defined in `Wk\GoogleSpreadsheetBundle\App\parameters.yml` in your own project's parameter.yml:
 
 ```yaml
 # parameters.yml
