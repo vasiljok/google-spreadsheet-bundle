@@ -3,7 +3,6 @@ imports:
 
 framework:
     secret: "%kernel.secret%"
-    test: ~
 
 wk_google_spreadsheet:
     scope: "https://spreadsheets.google.com/feeds"
