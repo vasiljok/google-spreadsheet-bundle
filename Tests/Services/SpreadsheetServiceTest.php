@@ -6,6 +6,7 @@ use Google\Spreadsheet\ServiceRequestFactory;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Wk\GoogleSpreadsheetBundle\Services\SpreadsheetService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use \PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * Class SpreadsheetServiceTest
@@ -19,11 +20,27 @@ class SpreadsheetServiceTest extends WebTestCase
     private $client;
 
     /**
+     * @var PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockServiceRequest;
+
+    /**
+     * @var SpreadsheetService
+     */
+    private $speadsheetService;
+
+    /**
      * set up client
      */
     public function setUp()
     {
         $this->client = static::createClient();
+
+        $this->mockServiceRequest = $this->getMockBuilder('Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->speadsheetService = new SpreadsheetService($this->mockServiceRequest);
     }
 
     /**
@@ -31,13 +48,7 @@ class SpreadsheetServiceTest extends WebTestCase
      */
     public function testSettingOfServiceRequestInstance()
     {
-        $testServiceRequest = $this->getMockBuilder('Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        new SpreadsheetService($testServiceRequest);
-
-        $this->assertEquals($testServiceRequest, ServiceRequestFactory::getInstance());
+        $this->assertEquals($this->mockServiceRequest, ServiceRequestFactory::getInstance());
     }
 
     /**
@@ -64,5 +75,30 @@ class SpreadsheetServiceTest extends WebTestCase
         }
 
         $this->client->getContainer()->get($serviceName);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideMethodIsAccessible()
+    {
+        return [
+            ['getSpreadsheets', true],
+            ['getSpreadsheetById', true],
+            ['getListFeed', true],
+            ['getCellFeed', true],
+            ['nonexistingMethod', false],
+        ];
+    }
+
+    /**
+     * @param string $method
+     * @param bool   $methodExists
+     *
+     * @dataProvider provideMethodIsAccessible
+     */
+    public function testMethodIsAccessible($method, $methodExists)
+    {
+        $this->assertEquals($methodExists, method_exists($this->speadsheetService, $method));
     }
 }
