@@ -12,6 +12,11 @@ use Wk\GoogleSpreadsheetBundle\DependencyInjection\WkGoogleSpreadsheetExtension;
 class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
 {
     /**
+     * @var array
+     */
+    private $config;
+
+    /**
      * @return array
      */
     public function provideLoadParameterException()
@@ -44,17 +49,28 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
      */
     public function testLoadParameter()
     {
-        $this->load([
-            'credentials' => [
-                'scope' => 'testscope',
-                'client_email' => 'client email',
-                'private_key' => 'private key'
-            ]
-        ]);
+        $this->load($this->config);
 
         $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.scope', 'testscope');
         $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.client_email', 'client email');
         $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.private_key', 'private key');
+    }
+
+    /**
+     * Test that the services exist in the container
+     */
+    public function testLoadContainer()
+    {
+        $this->load($this->config);
+
+        $wkGoogleSpreadsheet = 'wk_google_spreadsheet';
+        $wkGoogleOAuth2ForSpreadsheets = 'wk_google_oauth2_for_spreadsheets';
+
+        $this->assertContainerBuilderHasService($wkGoogleSpreadsheet, 'Wk\GoogleSpreadsheetBundle\Services\SpreadsheetService');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument($wkGoogleSpreadsheet, 0, $wkGoogleOAuth2ForSpreadsheets);
+
+        $this->assertContainerBuilderHasService($wkGoogleOAuth2ForSpreadsheets, 'Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest');
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall($wkGoogleOAuth2ForSpreadsheets, 'setCredentials', ['%credentials.scope%', '%credentials.client_email%', '%credentials.private_key%']);
     }
 
     /**
@@ -64,6 +80,22 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     {
         return [
             new WkGoogleSpreadsheetExtension()
+        ];
+    }
+
+    /**
+     * set up config
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->config = [
+            'credentials' => [
+                'scope' => 'testscope',
+                'client_email' => 'client email',
+                'private_key' => 'private key'
+            ]
         ];
     }
 }
