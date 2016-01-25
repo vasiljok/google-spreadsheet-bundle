@@ -22,16 +22,17 @@ public function registerBundles()
 }
 ```
 
-Overwrite the path to your Google OAuth2 JSON credentials defined in `Wk\GoogleSpreadsheetBundle\App\parameters.yml` in your own project's `parameters.yml`:
+Overwrite the Google OAuth2 credentials defined in `Wk\GoogleSpreadsheetBundle\App\parameters.yml` in your own project's `parameters.yml`:
 
 ```yaml
 # parameters.yml
-credentials_json_file: /path/to/credentials.json
+google_spreadsheets.credentials.client_email: your email
+google_spreadsheets.credentials.private_key: your private key
 ```
  
 Providing your Google OAuth2 credentials
 ----------------------------------------------------------------
-To interact with the Google Spreadsheet API you need to provide your Google OAuth2 service account credentials in JSON format. Please head over to [https://developers.google.com/identity/protocols/OAuth2ServiceAccount](https://developers.google.com/identity/protocols/OAuth2ServiceAccount) for more information on how to create a service account and obtain your service account key.
+To interact with the Google Spreadsheet API you need to provide your Google OAuth2 service account credentials. Please head over to [https://developers.google.com/identity/protocols/OAuth2ServiceAccount](https://developers.google.com/identity/protocols/OAuth2ServiceAccount) for more information on how to create a service account and obtain your service account key.
 
 Usage
 ----------------------------------------------------------------
