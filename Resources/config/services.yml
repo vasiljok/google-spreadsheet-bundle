@@ -1,3 +1,6 @@
+parameters:
+    credentials: "%wk_google_spreadsheet.credentials%"
+
 services:
     wk_google_spreadsheet:
         class: Wk\GoogleSpreadsheetBundle\Services\SpreadsheetService
@@ -8,4 +11,4 @@ services:
         class: Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest
         public: false
         calls:
-            - [setCredentials, ["%wk_google_spreadsheet.credentials_json_file%", "%wk_google_spreadsheet.scope%"]]
+            - [setCredentials, ["%credentials.scope%", "%credentials.client_email%", "%credentials.private_key%"]]

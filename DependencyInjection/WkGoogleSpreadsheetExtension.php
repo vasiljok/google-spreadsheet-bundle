@@ -22,8 +22,9 @@ class WkGoogleSpreadsheetExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $config);
 
-        $container->setParameter('wk_google_spreadsheet.scope', $config['scope']);
-        $container->setParameter('wk_google_spreadsheet.credentials_json_file', $config['credentials_json_file']);
+        $container->setParameter('wk_google_spreadsheet.credentials.scope', $config['credentials']['scope']);
+        $container->setParameter('wk_google_spreadsheet.credentials.client_email', $config['credentials']['client_email']);
+        $container->setParameter('wk_google_spreadsheet.credentials.private_key', $config['credentials']['private_key']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');

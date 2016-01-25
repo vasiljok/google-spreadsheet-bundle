@@ -5,5 +5,7 @@ framework:
     secret: "%kernel.secret%"
 
 wk_google_spreadsheet:
-    scope: "https://spreadsheets.google.com/feeds"
-    credentials_json_file: "%google_spreadsheets_credentials_json_file%"
+    credentials:
+        scope: "https://spreadsheets.google.com/feeds"
+        client_email: "%google_spreadsheets.credentials.client_email%"
+        private_key: "%google_spreadsheets.credentials.private_key%"

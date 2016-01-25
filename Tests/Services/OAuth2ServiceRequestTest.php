@@ -17,19 +17,16 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
      */
     public function testSetCredentials()
     {
-        $credentialsFile = __DIR__ . '/../Data/credentials.json';
         $scope = 'scope';
-        $assertionCredentials = new Google_Auth_AssertionCredentials('test@test.com', [$scope], 'privatekey');
+        $clientEmail = 'client email';
+        $privateKey = 'private key';
+
+        $assertionCredentials = new Google_Auth_AssertionCredentials($clientEmail, [$scope], $privateKey);
 
         $googleClientMock = $this->getMockBuilder('\Google_Client')
             ->disableOriginalConstructor()
             ->setMethods(['loadServiceAccountJson', 'setAssertionCredentials'])
             ->getMock();
-
-        $googleClientMock->expects($this->once())
-            ->method('loadServiceAccountJson')
-            ->with($credentialsFile)
-            ->willReturn($assertionCredentials);
 
         $googleClientMock->expects($this->once())
             ->method('setAssertionCredentials')
@@ -39,7 +36,7 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
 
         $oAuth2ServiceRequest->setClient($googleClientMock);
 
-        $oAuth2ServiceRequest->setCredentials($credentialsFile, $scope);
+        $oAuth2ServiceRequest->setCredentials($scope, $clientEmail, $privateKey);
     }
 
     /**

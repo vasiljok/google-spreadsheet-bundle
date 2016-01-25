@@ -1,3 +1,4 @@
 parameters:
     kernel.secret: ThisIsVerySecret!
-    google_spreadsheets_credentials_json_file: "/path/to/credentials.json"
+    google_spreadsheets.credentials.client_email: "client email"
+    google_spreadsheets.credentials.private_key: "private key"

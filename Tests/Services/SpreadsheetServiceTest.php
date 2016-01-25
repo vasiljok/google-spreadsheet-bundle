@@ -3,6 +3,8 @@
 namespace Wk\GoogleSpreadsheetBundle\Tests\Services;
 
 use Google\Spreadsheet\ServiceRequestFactory;
+use Google\Spreadsheet\Spreadsheet;
+use Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest;
 use Wk\GoogleSpreadsheetBundle\Services\SpreadsheetService;
 use \PHPUnit_Framework_MockObject_MockObject;
 use \PHPUnit_Framework_TestCase;

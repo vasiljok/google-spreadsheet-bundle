@@ -14,8 +14,11 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
     public function testConfigurationFiles()
     {
         $expectedConfiguration = [
-            'scope' => 'testscope',
-            'credentials_json_file' => 'credentials.json',
+            'credentials' => [
+                'scope' => 'testscope',
+                'client_email' => 'client email',
+                'private_key' => 'private key'
+            ]
         ];
 
         $sources = [__DIR__ . '/../Data/DependencyInjection/config.yml'];

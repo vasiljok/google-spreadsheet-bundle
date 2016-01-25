@@ -5,6 +5,7 @@ namespace Wk\GoogleSpreadsheetBundle\Services;
 use Google\Spreadsheet\DefaultServiceRequest;
 use \Google_Client;
 use \Google_Auth_OAuth2;
+use \Google_Auth_AssertionCredentials;
 
 /**
  * Class OAuth2ServiceRequest
@@ -40,13 +41,19 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     }
 
     /**
-     * @param string $serviceAccountJsonFile
      * @param string $scope
+     * @param string $clientEmail
+     * @param string $privateKey
+     *
+     * @return $this
      */
-    public function setCredentials($serviceAccountJsonFile, $scope)
+    public function setCredentials($scope, $clientEmail, $privateKey)
     {
-        $credentials = $this->client->loadServiceAccountJson($serviceAccountJsonFile, [$scope]);
-        $this->client->setAssertionCredentials($credentials);
+        $assertionCredentials = new Google_Auth_AssertionCredentials($clientEmail, array($scope), $privateKey);
+
+        $this->client->setAssertionCredentials($assertionCredentials);
+
+        return $this;
     }
 
     /**

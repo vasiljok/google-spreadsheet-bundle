@@ -17,8 +17,10 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     public function provideLoadParameterException()
     {
         return [
-            [['scope' => 'testscope'], 'The child node "credentials_json_file" at path "wk_google_spreadsheet" must be configured.'],
-            [['credentials_json_file' => 'credentials.json'], 'The child node "scope" at path "wk_google_spreadsheet" must be configured.']
+            [[], 'The child node "credentials" at path "wk_google_spreadsheet" must be configured.'],
+            [['credentials' => []], 'The child node "scope" at path "wk_google_spreadsheet.credentials" must be configured.'],
+            [['credentials' => ['scope' => 'testscope']], 'The child node "client_email" at path "wk_google_spreadsheet.credentials" must be configured.'],
+            [['credentials' => ['scope' => 'testscope', 'client_email' => 'client email']], 'The child node "private_key" at path "wk_google_spreadsheet.credentials" must be configured.'],
         ];
     }
 
@@ -43,12 +45,16 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     public function testLoadParameter()
     {
         $this->load([
-            'scope' => 'testscope',
-            'credentials_json_file' => 'credentials.json',
+            'credentials' => [
+                'scope' => 'testscope',
+                'client_email' => 'client email',
+                'private_key' => 'private key'
+            ]
         ]);
 
-        $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.scope', 'testscope');
-        $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials_json_file', 'credentials.json');
+        $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.scope', 'testscope');
+        $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.client_email', 'client email');
+        $this->assertContainerBuilderHasParameter('wk_google_spreadsheet.credentials.private_key', 'private key');
     }
 
     /**
