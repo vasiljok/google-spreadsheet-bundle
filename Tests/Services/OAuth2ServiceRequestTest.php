@@ -34,7 +34,9 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
 
         $oAuth2ServiceRequest = new OAuth2ServiceRequest();
 
-        $oAuth2ServiceRequest->setClient($googleClientMock);
+        $clientReflection = new \ReflectionProperty(OAuth2ServiceRequest::class, 'client');
+        $clientReflection->setAccessible(true);
+        $clientReflection->setValue($oAuth2ServiceRequest, $googleClientMock);
 
         $oAuth2ServiceRequest->setCredentials($scope, $clientEmail, $privateKey);
     }
@@ -88,7 +90,9 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
 
         $oAuth2ServiceRequest = new OAuth2ServiceRequest();
 
-        $oAuth2ServiceRequest->setClient($googleClientMock);
+        $clientReflection = new \ReflectionProperty(OAuth2ServiceRequest::class, 'client');
+        $clientReflection->setAccessible(true);
+        $clientReflection->setValue($oAuth2ServiceRequest, $googleClientMock);
 
         $actualAccessToken = $oAuth2ServiceRequest->refreshExpiredToken();
 

@@ -29,18 +29,6 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     }
 
     /**
-     * @param Google_Client $client
-     *
-     * @return $this
-     */
-    public function setClient(Google_Client $client)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
      * @param string $scope
      * @param string $clientEmail
      * @param string $privateKey
