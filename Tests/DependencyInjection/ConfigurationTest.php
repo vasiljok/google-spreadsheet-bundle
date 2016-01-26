@@ -11,6 +11,9 @@ use Wk\GoogleSpreadsheetBundle\DependencyInjection\WkGoogleSpreadsheetExtension;
  */
 class ConfigurationTest extends AbstractExtensionConfigurationTestCase
 {
+    /**
+     * test loading the config.yml
+     */
     public function testConfigurationFiles()
     {
         $expectedConfiguration = [

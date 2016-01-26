@@ -17,6 +17,22 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     private $config;
 
     /**
+     * set up config
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->config = [
+            'credentials' => [
+                'scope' => 'testscope',
+                'client_email' => 'client email',
+                'private_key' => 'private key'
+            ]
+        ];
+    }
+
+    /**
      * @return array
      */
     public function provideLoadParameterException()
@@ -80,22 +96,6 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     {
         return [
             new WkGoogleSpreadsheetExtension()
-        ];
-    }
-
-    /**
-     * set up config
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->config = [
-            'credentials' => [
-                'scope' => 'testscope',
-                'client_email' => 'client email',
-                'private_key' => 'private key'
-            ]
         ];
     }
 }
