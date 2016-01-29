@@ -40,10 +40,6 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
         return [
             [[], 'The child node "credentials" at path "wk_google_spreadsheet" must be configured.'],
             [
-                ['credentials' => []],
-                'The child node "scope" at path "wk_google_spreadsheet.credentials" must be configured.',
-            ],
-            [
                 ['credentials' => ['scope' => 'testscope']],
                 'The child node "client_email" at path "wk_google_spreadsheet.credentials" must be configured.',
             ],
