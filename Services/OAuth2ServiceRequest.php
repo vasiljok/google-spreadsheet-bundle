@@ -20,28 +20,24 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
 
     /**
      * set google client
-     */
-    public function __construct()
-    {
-        $this->client = new Google_Client();
-
-        parent::__construct('');
-    }
-
-    /**
+     *
      * @param string $scope
      * @param string $clientEmail
-     * @param string $privateKey
-     *
-     * @return $this
+     * @param string $privateKeyFile
      */
-    public function setCredentials($scope, $clientEmail, $privateKey)
+    public function __construct($scope, $clientEmail, $privateKeyFile)
     {
-        $assertionCredentials = new Google_Auth_AssertionCredentials($clientEmail, array($scope), $privateKey);
+        if (!file_exists($privateKeyFile)) {
+            throw new \InvalidArgumentException(sprintf('The file "%s" does not exist.', $privateKeyFile));
+        }
 
-        $this->client->setAssertionCredentials($assertionCredentials);
+        $privateKey = file_get_contents($privateKeyFile);
+        $credentials = new Google_Auth_AssertionCredentials($clientEmail, array($scope), $privateKey);
 
-        return $this;
+        $this->client = new Google_Client();
+        $this->client->setAssertionCredentials($credentials);
+
+        parent::__construct('');
     }
 
     /**

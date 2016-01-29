@@ -25,10 +25,10 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
 
         $this->config = [
             'credentials' => [
-                'scope' => 'testscope',
+                'scope'        => 'testscope',
                 'client_email' => 'client email',
-                'private_key' => 'private key'
-            ]
+                'private_key'  => 'private key',
+            ],
         ];
     }
 
@@ -39,9 +39,18 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     {
         return [
             [[], 'The child node "credentials" at path "wk_google_spreadsheet" must be configured.'],
-            [['credentials' => []], 'The child node "scope" at path "wk_google_spreadsheet.credentials" must be configured.'],
-            [['credentials' => ['scope' => 'testscope']], 'The child node "client_email" at path "wk_google_spreadsheet.credentials" must be configured.'],
-            [['credentials' => ['scope' => 'testscope', 'client_email' => 'client email']], 'The child node "private_key" at path "wk_google_spreadsheet.credentials" must be configured.'],
+            [
+                ['credentials' => []],
+                'The child node "scope" at path "wk_google_spreadsheet.credentials" must be configured.',
+            ],
+            [
+                ['credentials' => ['scope' => 'testscope']],
+                'The child node "client_email" at path "wk_google_spreadsheet.credentials" must be configured.',
+            ],
+            [
+                ['credentials' => ['scope' => 'testscope', 'client_email' => 'client email']],
+                'The child node "private_key" at path "wk_google_spreadsheet.credentials" must be configured.',
+            ],
         ];
     }
 
@@ -86,7 +95,9 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument($wkGoogleSpreadsheet, 0, $wkGoogleOAuth2ForSpreadsheets);
 
         $this->assertContainerBuilderHasService($wkGoogleOAuth2ForSpreadsheets, 'Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest');
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall($wkGoogleOAuth2ForSpreadsheets, 'setCredentials', ['%credentials.scope%', '%credentials.client_email%', '%credentials.private_key%']);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument($wkGoogleOAuth2ForSpreadsheets, 0, '%wk_google_spreadsheet.credentials.scope%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument($wkGoogleOAuth2ForSpreadsheets, 1, '%wk_google_spreadsheet.credentials.client_email%');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument($wkGoogleOAuth2ForSpreadsheets, 2, '%wk_google_spreadsheet.credentials.private_key%');
     }
 
     /**
@@ -95,7 +106,7 @@ class WkGoogleSpreadsheetExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return [
-            new WkGoogleSpreadsheetExtension()
+            new WkGoogleSpreadsheetExtension(),
         ];
     }
 }

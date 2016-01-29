@@ -1,4 +1,3 @@
 parameters:
-    kernel.secret: ThisIsVerySecret!
-    google_spreadsheets.credentials.client_email: "client email"
-    google_spreadsheets.credentials.private_key: "private key"
+    secret: ThisIsVerySecret!
+    google_spreadsheet_client_email: "client email"

@@ -22,12 +22,14 @@ public function registerBundles()
 }
 ```
 
-Overwrite the Google OAuth2 credentials defined in `Wk\GoogleSpreadsheetBundle\App\parameters.yml` in your own project's `parameters.yml`:
+Set the Google OAuth2 credentials in your project's `config.yml`:
 
 ```yaml
-# parameters.yml
-google_spreadsheets.credentials.client_email: your email
-google_spreadsheets.credentials.private_key: your private key
+# config.yml
+wk_google_spreadsheets
+    credentials:
+        client_email: "802199133289-frv8en7bgmr79ohtr777ibsp0uuhdk1g@developer.gserviceaccount.com"
+        private_key: "%kernel.root_dir%/config/google.pem"
 ```
  
 Providing your Google OAuth2 credentials

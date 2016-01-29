@@ -13,32 +13,39 @@ use \Google_Auth_AssertionCredentials;
 class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * Tests if an exception is thrown if the file doesn't exist
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The file "private_key" does not exist.
+     */
+    public function testConstructorFileException()
+    {
+        new OAuth2ServiceRequest('scope', 'client_email', 'private_key');
+    }
+
+    /**
      * testing if the credentials are correctly set in the google client
      */
-    public function testSetCredentials()
+    public function testConstructor()
     {
         $scope = 'scope';
         $clientEmail = 'client email';
-        $privateKey = 'private key';
+        $privateKey = 'google_spreadsheet.credentials.private_key';
+        $privateKeyFile = __DIR__ . '/../../App/private.key';
 
         $assertionCredentials = new Google_Auth_AssertionCredentials($clientEmail, [$scope], $privateKey);
+        $expectedClient = new \Google_Client();
+        $expectedClient->setAssertionCredentials($assertionCredentials);
 
-        $googleClientMock = $this->getMockBuilder('\Google_Client')
-            ->disableOriginalConstructor()
-            ->setMethods(['loadServiceAccountJson', 'setAssertionCredentials'])
-            ->getMock();
-
-        $googleClientMock->expects($this->once())
-            ->method('setAssertionCredentials')
-            ->with($assertionCredentials);
-
-        $oAuth2ServiceRequest = new OAuth2ServiceRequest();
+        $oAuth2ServiceRequest = new OAuth2ServiceRequest($scope, $clientEmail, $privateKeyFile);
 
         $clientReflection = new \ReflectionProperty(OAuth2ServiceRequest::class, 'client');
         $clientReflection->setAccessible(true);
-        $clientReflection->setValue($oAuth2ServiceRequest, $googleClientMock);
 
-        $oAuth2ServiceRequest->setCredentials($scope, $clientEmail, $privateKey);
+        /** @var \Google_Client $client */
+        $client = $clientReflection->getValue($oAuth2ServiceRequest);
+        $this->assertInstanceOf(\Google_Client::class, $client);
+        $this->assertEquals($expectedClient, $client);
     }
 
     /**
@@ -88,7 +95,8 @@ class OAuth2ServiceRequestTest extends PHPUnit_Framework_TestCase
             ->method('getAuth')
             ->willReturn($googleAuthMock);
 
-        $oAuth2ServiceRequest = new OAuth2ServiceRequest();
+        $privateKeyFile = __DIR__ . '/../../App/private.key';
+        $oAuth2ServiceRequest = new OAuth2ServiceRequest('scope', 'client_email', $privateKeyFile);
 
         $clientReflection = new \ReflectionProperty(OAuth2ServiceRequest::class, 'client');
         $clientReflection->setAccessible(true);

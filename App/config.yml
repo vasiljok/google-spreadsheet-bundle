@@ -2,10 +2,10 @@ imports:
     - { resource: parameters.yml }
 
 framework:
-    secret: "%kernel.secret%"
+    secret: "%secret%"
 
 wk_google_spreadsheet:
     credentials:
         scope: "https://spreadsheets.google.com/feeds"
-        client_email: "%google_spreadsheets.credentials.client_email%"
-        private_key: "%google_spreadsheets.credentials.private_key%"
+        client_email: "%google_spreadsheet_client_email%"
+        private_key: "%kernel.root_dir%/App/private.key%"
