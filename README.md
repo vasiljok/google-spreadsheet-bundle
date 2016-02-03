@@ -1,5 +1,7 @@
 # WkGoogleSpreadsheetBundle
 
+[![Build Status](https://travis-ci.org/asgoodasnu/google-spreadsheet-bundle.png?branch=master)](https://travis-ci.org/asgoodasnu/google-spreadsheet-bundle) [![Total Downloads](https://poser.pugx.org/asgoodasnu/google-spreadsheet-bundle/d/total.png)](https://packagist.org/packages/asgoodasnu/google-spreadsheet-bundle) [![Latest Stable Version](https://poser.pugx.org/asgoodasnu/google-spreadsheet-bundle/v/stable.png)](https://packagist.org/packages/asgoodasnu/google-spreadsheet-bundle) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8291b0ce-38b5-4f22-8f2e-cb2c2e926759/mini.png)](https://insight.sensiolabs.com/projects/8291b0ce-38b5-4f22-8f2e-cb2c2e926759)
+
 The WkGoogleSpreadsheetBundle provides a Symfony2 service to interact with the Google Spreadsheet API using the [asimlqt/php-google-spreadsheet-client](https://github.com/asimlqt/php-google-spreadsheet-client) library.
 It incorporates the [google/apiclient](https://github.com/google/google-api-php-client) to connect to Google via OAuth2 as a server to server application.
 
