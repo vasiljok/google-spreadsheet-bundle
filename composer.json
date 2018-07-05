@@ -1,5 +1,5 @@
 {
-  "name": "asgoodasnu/google-spreadsheet-bundle",
+  "name": "vasiljok/google-spreadsheet-bundle",
   "type": "symfony-bundle",
   "description": "Integrates asimlqt/php-google-spreadsheet-client with Symfony2 and google/apiclient",
   "homepage": "https://github.com/asgoodasnu/google-spreadsheet-bundle",
@@ -15,10 +15,10 @@
     }
   ],
   "require": {
-    "symfony/framework-bundle": "~2.6",
-    "symfony/yaml": "~2.6",
-    "asimlqt/php-google-spreadsheet-client": "2.3.7",
-    "google/apiclient": "1.1.6"
+    "symfony/framework-bundle": "~3.4",
+    "symfony/yaml": "~3.4",
+    "asimlqt/php-google-spreadsheet-client": "v3.0.2",
+    "google/apiclient": "v2.2.2"
   },
   "require-dev": {
     "matthiasnoback/symfony-dependency-injection-test": "~0.7",
