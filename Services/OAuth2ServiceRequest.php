@@ -59,4 +59,22 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
 
         return parent::initRequest($url, $requestHeaders);
     }
+
+    /**
+     * Get url for authorization
+     * @return string
+     */
+    public function getAuthUrl()
+    {
+        return $this->client->createAuthUrl();
+    }
+
+    /**
+     * @param string $authCode
+     * @return string
+     */
+    public function fetchAccessTokenWithAuthCode($authCode)
+    {
+        return $this->client->fetchAccessTokenWithAuthCode($authCode);
+    }
 }
