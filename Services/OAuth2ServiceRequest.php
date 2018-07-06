@@ -11,7 +11,7 @@ use Google\Spreadsheet\DefaultServiceRequest;
 class OAuth2ServiceRequest extends DefaultServiceRequest
 {
     /**
-     * @var Google_Client
+     * @var \Google_Client
      */
     private $client;
 
@@ -60,20 +60,10 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     }
 
     /**
-     * Get url for authorization
-     * @return string
+     * @return \Google_Client
      */
-    public function getAuthUrl()
+    public function getGoogleClient()
     {
-        return $this->client->createAuthUrl();
-    }
-
-    /**
-     * @param string $authCode
-     * @return string
-     */
-    public function fetchAccessTokenWithAuthCode($authCode)
-    {
-        return $this->client->fetchAccessTokenWithAuthCode($authCode);
+        return $this->client;
     }
 }
