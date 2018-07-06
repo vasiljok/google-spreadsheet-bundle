@@ -31,6 +31,8 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
 
         $this->client = new Google_Client();
         $this->client->setAuthConfig($privateKeyFile);
+        $this->client->useApplicationDefaultCredentials();
+        $this->client->addScope($scope);
 
         parent::__construct('');
     }
