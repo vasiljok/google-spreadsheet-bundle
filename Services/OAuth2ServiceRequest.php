@@ -3,7 +3,6 @@
 namespace Wk\GoogleSpreadsheetBundle\Services;
 
 use Google\Spreadsheet\DefaultServiceRequest;
-use \Google_Client;
 
 /**
  * Class OAuth2ServiceRequest
@@ -28,9 +27,9 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
             throw new \InvalidArgumentException(sprintf('The file "%s" does not exist.', $privateKeyFile));
         }
 
-        $this->client = new Google_Client();
+        $this->client = new \Google_Client();
         $this->client->setAuthConfig($privateKeyFile);
-        $this->client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+        $this->client->setScopes(\Google_Service_Sheets::SPREADSHEETS);
         $this->client->setAccessType('offline');
 
         parent::__construct($token);
