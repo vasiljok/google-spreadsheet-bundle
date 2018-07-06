@@ -4,8 +4,6 @@ namespace Wk\GoogleSpreadsheetBundle\Services;
 
 use Google\Spreadsheet\DefaultServiceRequest;
 use \Google_Client;
-use \Google_Auth_OAuth2;
-use \Google_Auth_AssertionCredentials;
 
 /**
  * Class OAuth2ServiceRequest
@@ -31,11 +29,8 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
             throw new \InvalidArgumentException(sprintf('The file "%s" does not exist.', $privateKeyFile));
         }
 
-        $privateKey = file_get_contents($privateKeyFile);
-        $credentials = new Google_Auth_AssertionCredentials($clientEmail, array($scope), $privateKey);
-
         $this->client = new Google_Client();
-        $this->client->setAssertionCredentials($credentials);
+        $this->client->setAuthConfig($privateKeyFile);
 
         parent::__construct('');
     }
@@ -45,14 +40,11 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
      */
     public function refreshExpiredToken()
     {
-        /** @var Google_Auth_OAuth2 $auth */
-        $auth = $this->client->getAuth();
-
-        if ($auth->isAccessTokenExpired()) {
-            $auth->refreshTokenWithAssertion();
+        if ($this->client->isAccessTokenExpired()) {
+            $this->client->refreshTokenWithAssertion();
         }
 
-        $accessTokenArray = json_decode($auth->getAccessToken(), true);
+        $accessTokenArray = $this->client->getAccessToken();
 
         return ($accessTokenArray && isset($accessTokenArray['access_token'])) ? $accessTokenArray['access_token'] : null;
     }
