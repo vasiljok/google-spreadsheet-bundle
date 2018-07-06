@@ -19,11 +19,10 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     /**
      * set google client
      *
-     * @param string $scope
-     * @param string $clientEmail
+     * @param string $token
      * @param string $privateKeyFile
      */
-    public function __construct($scope, $clientEmail, $privateKeyFile)
+    public function __construct($token, $privateKeyFile)
     {
         if (!file_exists($privateKeyFile)) {
             throw new \InvalidArgumentException(sprintf('The file "%s" does not exist.', $privateKeyFile));
@@ -31,10 +30,10 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
 
         $this->client = new Google_Client();
         $this->client->setAuthConfig($privateKeyFile);
-        $this->client->useApplicationDefaultCredentials();
-        $this->client->addScope($scope);
+        $this->client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+        $this->client->setAccessType('offline');
 
-        parent::__construct('');
+        parent::__construct($token);
     }
 
     /**
@@ -43,7 +42,7 @@ class OAuth2ServiceRequest extends DefaultServiceRequest
     public function refreshExpiredToken()
     {
         if ($this->client->isAccessTokenExpired()) {
-            $this->client->refreshTokenWithAssertion();
+            $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
         }
 
         $accessTokenArray = $this->client->getAccessToken();

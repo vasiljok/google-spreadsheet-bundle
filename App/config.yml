@@ -6,6 +6,5 @@ framework:
 
 wk_google_spreadsheet:
     credentials:
-        scope: "https://spreadsheets.google.com/feeds"
-        client_email: "%google_spreadsheet_client_email%"
+        token: "%google_spreadsheet_token%"
         private_key: "%kernel.root_dir%/App/private.key%"

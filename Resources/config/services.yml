@@ -8,6 +8,5 @@ services:
         class: Wk\GoogleSpreadsheetBundle\Services\OAuth2ServiceRequest
         public: false
         arguments:
-            - "%wk_google_spreadsheet.credentials.scope%"
-            - "%wk_google_spreadsheet.credentials.client_email%"
+            - "%wk_google_spreadsheet.credentials.token%"
             - "%wk_google_spreadsheet.credentials.private_key%"
