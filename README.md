@@ -28,7 +28,7 @@ Set the Google OAuth2 credentials in your project's `config.yml`:
 
 ```yaml
 # config.yml
-wk_google_spreadsheets:
+wk_google_spreadsheet:
     credentials:
         client_email: "802199133289-frv8en7bgmr79ohtr777ibsp0uuhdk1g@developer.gserviceaccount.com"
         private_key: "%kernel.root_dir%/config/google.pem"
